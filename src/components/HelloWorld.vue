@@ -1,23 +1,26 @@
 <template>
-  <div class="text-center"></div>
-  <div class="duration-1000 bg-white dark:bg-gray-800 w-full h-screen px-24 py-12">
-      <ul v-for='item in this.enterCount'>
-          <li>
-              <p style="font-family: Courier;" :class="'text'+item" class="mt-5 text-green-500 dark:text-green-400 text-xl">{{this.data}}<span class="animate-pulse dark:text-green-400 text-black">|</span></p>                
-          </li>
-          <li>
-              <p style="font-family: Courier;" :class="'error'+item" class="hidden text-green-500 dark:text-green-400 text-xl"><span :class="'command'+item" class="command"></span> Invalid command! --help for commands.</p>
-          </li>
-          <li>
-              <p style="font-family: Courier;" :class="'help'+item" class="hidden text-green-500 dark:text-green-400 text-xl">
-                  Sık Kullanılan Komutlar:<br>
-                  &nbsp;&nbsp;ls &nbsp;&nbsp;&nbsp;- Dizin ayrıntılarını listele<br>
-                  &nbsp;&nbsp;cd &nbsp;&nbsp;&nbsp;- Bir alt dizine geç<br>
-                  &nbsp;&nbsp;cd .. - Bir üst dizine geç<br>
-                  &nbsp;&nbsp;cls &nbsp;&nbsp;- Terminali temizle<br>
-              </p>
-          </li>
-      </ul>
+  <div class="theme-page">
+    <div class="duration-1000 bg-white dark:bg-gray-800 w-full h-screen px-24 py-12">
+        <ul v-for='item in this.enterCount'>
+            <li>
+                <p style="font-family: Courier;" :class="'text'+item" class="mt-5 text-green-500 dark:text-green-400 text-xl">{{this.data}}<span class="animate-pulse dark:text-green-400 text-black">|</span></p>                
+            </li>
+            <li>
+                <p style="font-family: Courier;" :class="'error'+item" class="hidden my-4 text-green-500 dark:text-green-400 text-xl"><span :class="'command'+item" class="command font-semibold"></span> Invalid command! --help for commands.</p>
+            </li>
+            <li>
+                <p style="font-family: Courier;" :class="'help'+item" class="hidden text-green-500 dark:text-green-400 text-xl">
+                    <br>Sık Kullanılan Komutlar:<br>
+                    &nbsp;&nbsp;ls &nbsp;&nbsp;&nbsp;- Dizin ayrıntılarını listele<br>
+                    &nbsp;&nbsp;cd &nbsp;&nbsp;&nbsp;- Bir alt dizine geç
+                    <p class="text-green-300">&nbsp;&nbsp;[cd kullanım şekli "cd directory"]</p>
+                    &nbsp;&nbsp;cd .. - Bir üst dizine geç<br>
+                    &nbsp;&nbsp;cls &nbsp;&nbsp;- Terminali temizle<br>
+                    
+                </p>
+            </li>
+        </ul>
+    </div>
   </div>
 </template>
 
@@ -41,7 +44,7 @@ export default {
       myEventListener(event) {
           if (event.code == 'Backspace' || event.code == 'Delete') {
               this.count -= 1;
-              if( (this.currentDir=="vuengineer" && this.count<20) || (this.currentDir=="yas" && this.count<24) || (this.currentDir=="ozgecmis" && this.count<29) ){
+              if( (this.currentDir=="vuengineer" && this.count<20) || (this.currentDir=="iletisim" && this.count<29) || (this.currentDir=="ozgecmis" && this.count<29) || (this.currentDir=="repositories" && this.count<33) ){
                   this.checkDirection()
               }
               this.data = this.cutData(this.data, this.count)
@@ -103,22 +106,22 @@ export default {
               if(this.checkDir==0){
                   let finalError = '.error' + (this.enterCount-1)
                   document.querySelector(finalError).classList.remove('hidden');
-                  document.querySelector(finalError).innerHTML = " yas <br> ozgecmis <br> github"
+                  document.querySelector(finalError).innerHTML = " ozgecmis <br> github <br> iletisim <br>"
               }
-              if(this.checkDir==1 && this.currentDir=="yas"){
+              if(this.checkDir==1 && this.currentDir=="iletisim"){
                   let finalError = '.error' + (this.enterCount-1)
                   document.querySelector(finalError).classList.remove('hidden');
-                  document.querySelector(finalError).innerHTML = this.currentYear -1
+                  document.querySelector(finalError).innerHTML = "<a class='hover:underline' href='mailto:iletisim@sefaburak.dev'>iletisim@sefaburak.dev</a><br><a class='hover:underline' target='_blank' href='https://sefaburak.dev/'>sefaburak.dev/</a><br>"
               }
               if(this.checkDir==1 && this.currentDir=="ozgecmis"){
                   let finalError = '.error' + (this.enterCount-1)
                   document.querySelector(finalError).classList.remove('hidden');
-                  document.querySelector(finalError).innerHTML = 'Merhaba ben Burak. 17 yaşındayım ve 3 yıldan uzun süredir yazılım ile ilgileniyorum. Orta seviye Javascript(Vue.js), Typescript, Python, PHP, C# bilgim var. Kendi projelerimin yanı sıra 1 yıla yakın staj yaptığım bir firmanın gelişmiş projelerinde de, karmaşık projelerin yapısı öğrendim. Henüz junior olsam da seviyemin en iyi olabileceğimi düşünüyorum.'
+                  document.querySelector(finalError).innerHTML = 'Merhaba ben Burak.' + this.currentYear + ' yaşındayım ve 3 yıldan uzun süredir yazılım ile ilgileniyorum. Orta seviye Javascript(Vue.js), Typescript, Python, PHP, C# bilgim var. Kendi projelerimin yanı sıra 1 yıla yakın staj yaptığım bir firmanın gelişmiş projelerinde de, karmaşık projelerin yapısı öğrendim. Henüz junior olsam da seviyemin en iyi olabileceğimi düşünüyorum.'
               }
-              if(this.checkDir==1 && this.currentDir=="github"){
+              if(this.checkDir==1 && this.currentDir=="repositories"){
                   let finalError = '.error' + (this.enterCount-1)
                   document.querySelector(finalError).classList.remove('hidden');
-                  document.querySelector(finalError).innerHTML = this.currentYear
+                  document.querySelector(finalError).innerHTML = '<a class="hover:underline" target="_blank" href="https://github.com/burcok/">Github profilime ulaşmak için tıkla</a><br><a class="hover:underline" target="_blank" href="https://github.com/burcok/vueConsoleCommandPratice">Bu sitenin kaynak kodlarına ulaşmak için tıkla.</a><br><a class="hover:underline" target="_blank" href="https://github.com/burcok/sefaburakdev">Websitemin kaynak kodlarına ulaşmak için tıkla.</a>'
               }
           }
           else if(data=="cls"){
@@ -144,9 +147,9 @@ export default {
                   this.checkDir -= 1
               }
           }
-          else if(data=="cd yas" && this.checkDir==0){
+          else if(data=="cd iletisim" && this.checkDir==0){
               this.checkDir = 1
-              this.currentDir = "yas"
+              this.currentDir = "iletisim"
           }
           else if(data=="cd ozgecmis" && this.checkDir==0){
               this.checkDir = 1
@@ -180,9 +183,9 @@ export default {
               this.data = "C:\\Users\\Vuengineer\\ozgecmis\\"
               this.count = 29
           }
-          else if(this.checkDir==1 && this.currentDir=="yas"){
-              this.data = "C:\\Users\\Vuengineer\\yas\\"
-              this.count = 24
+          else if(this.checkDir==1 && this.currentDir=="iletisim"){
+              this.data = "C:\\Users\\Vuengineer\\iletisim\\"
+              this.count = 29
           }
           else if(this.checkDir==1 && this.currentDir=="repositories"){
               this.data = "C:\\Users\\Vuengineer\\repositories\\"
@@ -192,7 +195,7 @@ export default {
   },
   mounted() {
       addEventListener("keydown", this.myEventListener);
-      if (this.currentMonth <9){
+      if ((this.currentMonth+1) <9){
         this.currentYear = this.currentYear -1;
       }
   },
